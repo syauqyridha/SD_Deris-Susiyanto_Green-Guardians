@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Guardians</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <button id="music-toggle" class="music-button">
+      <span class="music-icon">🔊</span>
+    </button>
+    <!-- Canvas untuk game -->
+    <canvas id="gameCanvas" class="hidden"></canvas>
+
+    <!-- Tutorial Screen -->
+    <div id="tutorial-screen" class="hidden">
+      <h2>Cara Bermain</h2>
+      <div class="tutorial-steps">
+        <div class="tutorial-step">
+          <p>Gunakan tombol WASD atau panah untuk bergerak</p>
+        </div>
+        <div class="tutorial-step">
+          <p>Kumpulkan sampah untuk mendapat poin</p>
+        </div>
+        <div class="tutorial-step">
+          <p>Ambil power-up untuk kemampuan spesial</p>
+        </div>
+      </div>
+      <button id="start-tutorial">Mulai Tutorial</button>
+      <button id="skip-tutorial">Lewati Tutorial</button>
+    </div>
+
+    <!-- Daily Challenge -->
+    <div id="daily-challenge" class="hidden">
+      <h2>Tantangan Harian</h2>
+      <div class="challenge-list">
+        <div class="challenge-item">
+          <h3>Kumpulkan 100 Sampah</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 0%"></div>
+          </div>
+          <p>Hadiah: Karakter Spesial</p>
+        </div>
+        <div class="challenge-item">
+          <h3>Capai Level 5</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 0%"></div>
+          </div>
+          <p>Hadiah: 500 poin bonus</p>
+        </div>
+      </div>
+      <button id="back-from-challenge">Kembali</button>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu">
+      <div class="game-logo">
+        <img src="assets/images/logo/Logo.png" alt="Green Guardians Logo">
+      </div>
+      <div class="game-tagline">
+        <span>Mari Jaga Lingkungan!</span>
+      </div>
+      <h1 class="game-title">Green Guardians</h1>
+      <button id="start-game">Mulai Game</button>
+      <button id="game-guide">Panduan Game</button>
+      <button id="about-game">Tentang Game</button>
+    </div>
+
+    <!-- Tambahkan section panduan game -->
+    <div id="game-guide-screen" class="hidden">
+      <h2>Panduan Game</h2>
+      <div class="guide-content">
+        <section>
+          <h3>Kontrol Game</h3>
+          <ul>
+            <li>Gunakan tombol W atau ↑ untuk bergerak ke atas</li>
+            <li>Gunakan tombol S atau ↓ untuk bergerak ke bawah</li>
+            <li>Gunakan tombol A atau ← untuk bergerak ke kiri</li>
+            <li>Gunakan tombol D atau → untuk bergerak ke kanan</li>
+            <li>Tekan SPASI untuk menjeda game</li>
+            <li>Tekan M untuk mengaktifkan/menonaktifkan musik</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Power-Ups</h3>
+          <ul>
+            <li><strong>🛡️ Shield:</strong> Memberikan perlindungan sementara dari rintangan</li>
+            <li><strong>⚡ Speed Boost:</strong> Meningkatkan kecepatan gerakan pemain</li>
+            <li><strong>🧲 Magnet:</strong> Menarik sampah di sekitar pemain</li>
+            <li><strong>⏰ Time Slower:</strong> Memperlambat pergerakan rintangan</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Jenis Sampah & Poin</h3>
+          <ul>
+            <li><strong>Sampah Plastik:</strong> 15 poin</li>
+            <li><strong>Sampah Organik:</strong> 5 poin</li>
+            <li><strong>Sampah Kertas:</strong> 10 poin</li>
+            <li><strong>Sampah Logam:</strong> 20 poin</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Level & Pencapaian</h3>
+          <ul>
+            <li>Setiap 100 poin akan menaikkan level</li>
+            <li>Game memiliki 7 level dengan tingkat kesulitan berbeda</li>
+            <li>Setiap level memiliki latar belakang unik</li>
+            <li>Kecepatan rintangan meningkat setiap level</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Tips Bermain</h3>
+          <ul>
+            <li>Prioritaskan mengambil sampah dengan poin tinggi</li>
+            <li>Manfaatkan power-up di saat yang tepat</li>
+            <li>Hindari rintangan dengan bergerak ke ruang kosong</li>
+            <li>Perhatikan pola pergerakan rintangan</li>
+            <li>Gunakan fitur pause saat butuh istirahat</li>
+          </ul>
+        </section>
+      </div>
+      <button id="back-from-guide">Kembali</button>
+    </div>
+
+    <!-- About Screen -->
+    <div id="about-screen" class="hidden">
+      <h2>Tentang Green Guardians</h2>
+      <p>Game ini bertujuan untuk meningkatkan kesadaran tentang pentingnya pengelolaan sampah dan dampaknya terhadap lingkungan. Setiap jenis sampah memiliki waktu penguraian yang berbeda di alam.</p>
+      
+      <!-- Tambahkan informasi pembuat -->
+      <div class="creator-info">
+        <h3>Dibuat Oleh:</h3>
+        <p>Nama: [Deris Susiyanto, S.Pd.SD]</p>
+        <p>Tahun: 2025</p>
+      </div>
+      
+      <!-- Tambahkan fakta-fakta lingkungan -->
+      <div class="environmental-facts">
+        <h3>Tahukah Kamu?</h3>
+        <ul>
+          <li>Indonesia menghasilkan 64 juta ton sampah per tahun</li>
+          <li>Setiap orang rata-rata menghasilkan 0.7 kg sampah per hari</li>
+          <li>Sampah plastik mencemari 80% area laut di Indonesia</li>
+          <li>Hanya 10% sampah plastik yang didaur ulang di Indonesia</li>
+          <li>Jakarta menghasilkan 7.500 ton sampah per hari</li>
+        </ul>
+      </div>
+      
+      <!-- Tambahkan tips aksi nyata -->
+      <div class="action-tips">
+        <h3>Apa yang Bisa Kamu Lakukan?</h3>
+        <ul>
+          <li>Pilah sampah sesuai jenisnya (organik, plastik, kertas, logam)</li>
+          <li>Bawa tas belanja dan botol minum sendiri</li>
+          <li>Kurangi penggunaan plastik sekali pakai</li>
+          <li>Manfaatkan sampah organik menjadi kompos</li>
+          <li>Jual sampah yang bisa didaur ulang ke bank sampah</li>
+          <li>Edukasi keluarga dan teman tentang pentingnya mengelola sampah</li>
+        </ul>
+      </div>
+      
+      <!-- Tambahkan informasi waktu penguraian -->
+      <div class="decomposition-info">
+        <h3>Waktu Penguraian Sampah</h3>
+        <ul>
+          <li>Sampah Organik: 2-4 minggu</li>
+          <li>Sampah Kertas: 2-5 bulan</li>
+          <li>Sampah Logam: 50-100 tahun</li>
+          <li>Sampah Plastik: 450 tahun</li>
+        </ul>
+      </div>
+      
+      <button id="back-to-menu">Kembali ke Menu</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="hidden">
+      <h2>Game Over!</h2>
+      <p>Skor Anda: <span id="final-score">0</span></p>
+      
+      <!-- Tambahkan bagian High Scores -->
+      <div class="high-scores">
+        <h3>High Scores</h3>
+        <ol id="high-scores-list">
+          <!-- High scores akan ditambahkan di sini -->
+        </ol>
+      </div>
+      
+      <!-- Tambahkan Achievement yang didapat -->
+      <div class="achievements-earned">
+        <h3>Achievements</h3>
+        <ul id="achievements-list">
+          <!-- Achievements akan ditambahkan di sini -->
+        </ul>
+      </div>
+      
+      <button id="restart-game">Main Lagi</button>
+      <button id="back-to-menu-gameover">Kembali ke Menu</button>
+    </div>
+
+    <!-- Level Up Notification -->
+    <div id="level-up-notification" class="hidden">
+      <h2>Level Up!</h2>
+      <p>Selamat! Anda telah mencapai level <span id="current-level">1</span>.</p>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="win-screen" class="hidden">
+      <h2>Selamat!</h2>
+      <p>Anda berhasil mencapai level maksimal (Level 7).</p>
+      <button id="restart-game-win">Main Lagi</button>
+    </div>
+
+    <!-- Tambahkan popup achievement -->
+    <div id="achievement-popup" class="hidden">
+      <div class="achievement-content">
+        <img src="" alt="Achievement Icon" id="achievement-icon">
+        <div class="achievement-text">
+          <h3 id="achievement-title"></h3>
+          <p id="achievement-description"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
